@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const slides = document.querySelectorAll('.slide');
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         if (!statusInput.value) {
@@ -34,13 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = {
             nome: document.getElementById('name').value,
             email: document.getElementById('email').value,
-            status: statusInput.value,
-            data: new Date().toISOString()
         };
 
-        let confirmations = JSON.parse(localStorage.getItem('eventConfirmations') || '[]');
-        confirmations.push(formData);
-        localStorage.setItem('eventConfirmations', JSON.stringify(confirmations));
+        if (statusInput.value == 'confirmado') {
+            await accept(formData);
+        } else {
+            await refuse(formData);
+        }
 
         alert('Confirmação enviada com sucesso!');
         form.reset();

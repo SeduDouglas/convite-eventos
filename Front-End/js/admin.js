@@ -1,6 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const confirmationsList = document.getElementById('confirmationsList');
-    const confirmations = JSON.parse(localStorage.getItem('eventConfirmations') || '[]');
+    const confirmations = await getItems();
 
     if (confirmations.length === 0) {
         confirmationsList.innerHTML = '<p>Nenhuma confirmação encontrada.</p>';
